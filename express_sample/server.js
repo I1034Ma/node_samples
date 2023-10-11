@@ -2,6 +2,8 @@
 const express = require('express')
 // dotenv モジュール読み込み
 const dotenv = require('dotenv')
+// router モジュール読み込み
+const routes = require('./routes')
 
 // dotenv の設定の読み込み
 dotenv.config()
@@ -14,21 +16,22 @@ console.log(POST)
 // サーバーの作成
 const app = express()
 
-// GETリクエスト処理
-app.get('/', (req, res) => {
-    // リクエスト処理
-    console.log(req.body)
-    console.log(req.url)
-    console.log(req.query)
+// ミドルウェアの設定
+app.use(express.static(__dirname + '/public'))
 
-    // レスポンス処理
-    res.send('Hello')
-    
-})
+// URLエンコード
+app.use(express.urlencoded({extended: true }))
+
+// ルーティングの有効化
+app.use(routes)
+
+
 
 // サーバー待機(Listen)
 app.listen(POST,HOST, () => {
     console.log(HOST) // ローカルホスト3000番台で待機中
     console.log(POST) // ローカルホスト3000番台をURLに入力すると
     console.log('wait...')// GETリクエスト処理が行われる
+    // サーバーの停止は Control + C で停止
+    // express_sampleのファイルを開きたい場合は code ./ または code express_sample
 })

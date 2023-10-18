@@ -11,14 +11,51 @@ router.get('/', (req, res) => {
     console.log(req.query)
 
     // レスポンス処理
-    res.send('Hello')
+    //res.send('Hello')
+    //テンプレートの表示(レンダリング)
+    res.render('index')
     
 })
 
 // プロフィールページの追加
 router.get('/profile', (req, res) => {
+    // red.send
+    //res.send('Profile')
+
+    var user = {
+        id :1,
+        name : 'MZN',
+        birthplace: '横浜',
+        hobby: [ガンプラ, ゲーム,鉄道旅],
+    }
+    var data = {
+        title: 'プロフィール',
+        user: user,
+    }
     //
-    res.send('Profile Page')
+    res.render('plofile', data)
+})
+
+// 商品一覧
+router.get('/item', (req, res) => {
+    var data = {
+        title: "商品一覧",
+        items: item.get(),
+    }
+    res.render('item/index', data)
+})
+
+// /item/ xxx のルーティング (パスパラメータ)
+router.get('/item/:id', (req, res) =>{
+    const id = req.params.id
+    //TODO: case1 
+    //TODO: case2 
+    // IDで商品データを取得
+    var selectItem = item.find(id)
+    var data = {
+        item: selectItem,
+    }
+    res.send('item/detail', data)
 })
 
 // POSTリクエスト

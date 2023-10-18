@@ -22,6 +22,9 @@ app.use(express.static(__dirname + '/public'))
 // URLエンコード
 app.use(express.urlencoded({extended: true }))
 
+// EJSをテンプレートエンジンとして設定
+app.set('view engine', 'ejs')
+
 // ルーティングの有効化
 app.use(routes)
 

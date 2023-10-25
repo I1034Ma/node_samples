@@ -3,6 +3,23 @@ const express = require('express')
 //Routerオブジェクトを生成
 const router = express.Router()
 
+//HomeControllerモジュールの読み込み
+const HomeController = require('./controllers/HomeController')
+const ItemController = require('./controller/ItemController')
+const LoginController = require('./controller/LoginController')
+
+//HomeControllerモジュールの読み込み
+router.get('/', HomeController.index)
+router.get('/profile', HomeController.profile)
+
+// Item取得
+router.get('/', ItemController.index)
+router.get('/item/;id', ItemController.detail)
+
+// Login
+router.get('/login', LoginController.index)
+router.get('/auth', LoginController.auth)
+
 // GETリクエスト処理
 router.get('/', (req, res) => {
     // リクエスト処理
@@ -17,69 +34,7 @@ router.get('/', (req, res) => {
     
 })
 
-// プロフィールページの追加
-router.get('/profile', (req, res) => {
-    // red.send
-    //res.send('Profile')
 
-    var user = {
-        id :1,
-        name : 'MZN',
-        birthplace: '横浜',
-        hobby: [ガンプラ, ゲーム,鉄道旅],
-    }
-    var data = {
-        title: 'プロフィール',
-        user: user,
-    }
-    //
-    res.render('plofile', data)
-})
-
-// 商品一覧
-router.get('/item', (req, res) => {
-    var data = {
-        title: "商品一覧",
-        items: item.get(),
-    }
-    res.render('item/index', data)
-})
-
-// /item/ xxx のルーティング (パスパラメータ)
-router.get('/item/:id', (req, res) =>{
-    const id = req.params.id
-    //TODO: case1 
-    //TODO: case2 
-    // IDで商品データを取得
-    var selectItem = item.find(id)
-    var data = {
-        item: selectItem,
-    }
-    res.send('item/detail', data)
-})
-
-// POSTリクエスト
-router.post('/auth', (req, res) => {
-    var loginName = req.body.login_name
-    var password = req.body.password
-
-    console.log(loginName, password)
-    
-    var message = "ログイン失敗"
-    //.env で設定した値(LOGIN_NAMEとPASSWORD)でログインチェック
-    //TODO: データベースに接続してユーザー取得
-    //TODO: パスワードはハッシュ値でチェック
-    if (loginName == process.env.LOGIN_NAME 
-        && password == process.env.PASSWORD) {
-        message = "ログインに成功しました"
-        //TODO: ログインが成功したらユーザーの状態を保存
-        //TODO: ログイン後のページの移動
-    }
-    else{
-        //TODO: ログイン画面に戻す
-    }
-    //res.send('認証処理')
-})
 
 //モジュール化
 module.exports = router

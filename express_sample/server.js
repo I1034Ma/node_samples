@@ -22,8 +22,14 @@ app.use(express.static(__dirname + '/public'))
 // URLエンコード
 app.use(express.urlencoded({extended: true }))
 
+// express-ejs-layoutsモジュールの読み込み
+const layouts = require('express-ejs-layouts')
 // EJSをテンプレートエンジンとして設定
 app.set('view engine', 'ejs')
+//
+app.set('layout', 'layouts/default')
+// ミドルウェアとして利用
+app.use(layouts)
 
 // ルーティングの有効化
 app.use(routes)

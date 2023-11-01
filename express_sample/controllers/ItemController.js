@@ -14,8 +14,9 @@ exports.index = (req, res) => {
 // 商品詳細
 exports.detail = (req, res) => {
     const id =req.params.id
-    // TODO: 
-    // TODO: 
+    // Itemインスタンスを生成
+    const item = new Item()
+    // IDで商品を取得
     var selectItem = item.find(id)
     var data = {
         title: "商品詳細",

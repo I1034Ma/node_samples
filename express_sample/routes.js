@@ -12,7 +12,7 @@ const LoginController = require('./controller/LoginController')
 router.get('/', HomeController.index)
 router.get('/profile', HomeController.profile)
 
-// Item取得
+// Item
 router.get('/', ItemController.index)
 router.get('/item/;id', ItemController.detail)
 

@@ -31,6 +31,14 @@ app.set('layout', 'layouts/default')
 // ミドルウェアとして利用
 app.use(layouts)
 
+//Express Sessionのミドルウェア追加
+const session = require('express-session')
+app.use(session({
+    secret: 'secret_key',
+    resave: false,
+    saveUninitalized: false,
+}))
+
 // ルーティングの有効化
 app.use(routes)
 

@@ -5,8 +5,9 @@ const router = express.Router()
 
 //HomeControllerモジュールの読み込み
 const HomeController = require('./controllers/HomeController')
-const ItemController = require('./controller/ItemController')
-const LoginController = require('./controller/LoginController')
+const ItemController = require('./controllers/ItemController')
+const LoginController = require('./controllers/LoginController')
+const UserController = require('./controllers/UserController')
 
 //HomeControllerモジュールの読み込み
 router.get('/', HomeController.index)
@@ -20,21 +21,8 @@ router.get('/item/;id', ItemController.detail)
 router.get('/login', LoginController.index)
 router.get('/auth', LoginController.auth)
 
-// GETリクエスト処理
-router.get('/', (req, res) => {
-    // リクエスト処理
-    console.log(req.body)
-    console.log(req.url)
-    console.log(req.query)
-
-    // レスポンス処理
-    //res.send('Hello')
-    //テンプレートの表示(レンダリング)
-    res.render('index')
-    
-})
-
-
+//User
+router.get('/user', UserController.index)
 
 //モジュール化
 module.exports = router
